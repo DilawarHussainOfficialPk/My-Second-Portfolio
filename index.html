@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilawar Hussain | Software Engineer & Web Architect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- CORE STYLING --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 2000;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: #0f172a; }
+        .logo span { background: linear-gradient(90deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .menu-btn { cursor: pointer; z-index: 3000; display: flex; flex-direction: column; gap: 6px; }
+        .menu-btn .bar { width: 28px; height: 3px; background: #1e293b; border-radius: 10px; transition: 0.3s; }
+
+        .nav-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 0%; background: #ffffff;
+            z-index: 2500; overflow: hidden; transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .nav-overlay.open { height: 100%; }
+        .nav-overlay a { text-decoration: none; font-size: 2.2rem; color: #0f172a; margin: 15px 0; font-weight: 800; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, #f8fafc 0%, #ffffff 50%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 100px 10% 50px;
+        }
+
+        .hero h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800; color: #0f172a; margin-bottom: 20px; letter-spacing: -2px; }
+        .hero h1 span { background: linear-gradient(135deg, #1d4ed8, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-primary { background: #2563eb; color: white; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2); border: none; }
+        .btn-secondary { background: #ffffff; color: #1e293b; border: 2px solid #e2e8f0; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(37, 99, 235, 0.15); }
+
+        /* --- SKILLS SECTION (FIXED) --- */
+        .section { padding: 90px 8%; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.2rem; font-weight: 800; color: #0f172a; }
+        .section-header p { color: #2563eb; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+        .skills-container { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); /* 3 Columns for laptop */
+            gap: 25px; 
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .skill-box { 
+            padding: 30px 20px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 15px; 
+            text-align: center; 
+            transition: 0.3s; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+        }
+        .skill-box:hover { border-color: #2563eb; background: #f8faff; transform: translateY(-5px); }
+        .skill-box i { font-size: 2.5rem; color: #2563eb; margin-bottom: 12px; }
+        .skill-box span { font-weight: 700; color: #1e293b; }
+
+        /* --- PROJECTS SECTION --- */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .project-card { background: #0f172a; color: white; border-radius: 20px; border: 2px solid #1e293b; overflow: hidden; transition: 0.3s; }
+        .project-card:hover { transform: translateY(-5px); border-color: #2563eb; }
+        .project-info { padding: 35px; }
+        .project-info h3 { margin-bottom: 10px; font-size: 1.4rem; }
+        .project-info p { color: #94a3b8; }
+
+        /* --- CONTACT BOX (FIXED) --- */
+        .contact-box {
+            max-width: 1000px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px; 
+            background: #f8fafc; 
+            padding: 50px; 
+            border-radius: 25px; 
+            border: 2px solid #e2e8f0;
+            align-items: start;
+        }
+        
+        .contact-info-text { text-align: left; }
+        .contact-info-text h3 { font-size: 1.5rem; margin-bottom: 15px; color: #0f172a; }
+        .contact-info-text p { color: #64748b; margin-bottom: 10px; word-break: break-all; } /* Break long emails */
+        
+        form { width: 100%; }
+        input, textarea { 
+            width: 100%; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            border: 2px solid #cbd5e1; 
+            border-radius: 10px; 
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus, textarea:focus { border-color: #2563eb; }
+
+        /* --- FOOTER --- */
+        footer { padding: 60px 8% 40px; background: #0f172a; color: #f8fafc; text-align: center; }
+        .social-links { margin-bottom: 25px; display: flex; justify-content: center; gap: 20px; }
+        .social-links a { 
+            color: #f8fafc; font-size: 1.5rem; transition: 0.3s; 
+            width: 50px; height: 50px; border: 1px solid #334155; 
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
+            text-decoration: none;
+        }
+        .social-links a:hover { background: #2563eb; border-color: #2563eb; }
+        
+        .footer-text { font-weight: 600; margin-bottom: 5px; }
+
+        /* MENU ANIMATION */
+        .change .bar1 { transform: rotate(-45deg) translate(-7px, 6px); }
+        .change .bar2 { opacity: 0; }
+        .change .bar3 { transform: rotate(45deg) translate(-7px, -6px); }
+
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 992px) {
+            .skills-container { grid-template-columns: repeat(2, 1fr); }
+            .contact-box { grid-template-columns: 1fr; gap: 30px; padding: 30px; }
+        }
+
+        @media (max-width: 600px) {
+            .skills-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.8rem; }
+            .btn { width: 100%; }
+            .section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Dilawar<span>Hussain</span></div>
+        <div class="menu-btn" onclick="toggleMenu()">
+            <div class="bar bar1"></div>
+            <div class="bar bar2"></div>
+            <div class="bar bar3"></div>
+        </div>
+    </header>
+
+    <div id="navMenu" class="nav-overlay">
+        <a href="#home" onclick="toggleMenu()">Home</a>
+        <a href="#skills" onclick="toggleMenu()">Skills</a>
+        <a href="#projects" onclick="toggleMenu()">Projects</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+    </div>
+
+    <section id="home" class="hero">
+        <h1>Building <span>Digital</span> Excellence</h1>
+        <p>Full-Stack Developer focused on building clean, high-performance web applications and custom software logic.</p>
+        <div class="btn-group">
+            <a href="#contact" class="btn btn-primary">Start a Project <i class="fas fa-paper-plane"></i></a>
+            <a href="#" class="btn btn-secondary"><i class="fas fa-download"></i> Download CV</a>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="section-header">
+            <p>Expertise</p>
+            <h2>My Tech Stack</h2>
+        </div>
+        <div class="skills-container">
+            <div class="skill-box"><i class="fab fa-html5"></i><span>HTML5</span></div>
+            <div class="skill-box"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+            <div class="skill-box"><i class="fab fa-js"></i><span>JavaScript</span></div>
+            <div class="skill-box"><i class="fab fa-python"></i><span>Python</span></div>
+            <div class="skill-box"><i class="fab fa-react"></i><span>React.js</span></div>
+            <div class="skill-box"><i class="fab fa-github"></i><span>GitHub</span></div>
+        </div>
+    </section>
+
+    <section id="projects" class="section" style="background-color: #fcfcfc;">
+        <div class="section-header">
+            <p>Portfolio</p>
+            <h2>Recent Work</h2>
+        </div>
+        <div class="grid-container">
+            <div class="project-card">
+                <div class="project-info">
+                    <h3>E-Commerce Solution</h3>
+                    <p>Modern retail engine with optimized database and secure checkout.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-info">
+                    <h3>Analytics Dashboard</h3>
+                    <p>Business intelligence tool with real-time data visualization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="section-header">
+            <p>Inquiry</p>
+            <h2>Work With Me</h2>
+        </div>
+        <div class="contact-box">
+            <div class="contact-info-text">
+                <h3>Contact Info</h3>
+                <p><strong>Email:</strong> dilawar.hussain@example.com</p>
+                <p><strong>Location:</strong> Remote / Global</p>
+                <p style="margin-top: 20px; font-size: 0.85rem;">I usually respond within 24 hours. Let's build something great together!</p>
+            </div>
+            <form onsubmit="sendForm(event)">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <textarea rows="5" placeholder="Tell me about your project..."></textarea>
+                <button type="submit" class="btn btn-primary" style="width: 100%; cursor: pointer;">Send Proposal</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" class="li" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="gh" title="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+        <p class="footer-text">&copy; 2026 Dilawar Hussain | Professional Web Solutions</p>
+        <p class="footer-sub" style="font-size: 0.8rem; color: #64748b;">Crafted for Excellence & Professional Growth</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu-btn').classList.toggle("change");
+            document.getElementById("navMenu").classList.toggle("open");
+        }
+        function sendForm(e) {
+            e.preventDefault();
+            alert("Thank you! I will get back to you within 24 hours.");
+        }
+    </script>
+</body>
+</html>
